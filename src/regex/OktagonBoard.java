@@ -14,16 +14,17 @@ public class OktagonBoard {
     public OktagonBoard(int sideWidth) {
         this.sideWidth = sideWidth;
         centerLineLength = sideWidth + sideWidth - 1;
+        createNet();
     }
 
-    public Cell createNet() {
-        Cell head = new Cell();
+    protected void createNet() {
+        head = new Cell();
 
         {
             Cell currentCell = head;
             for (int i = 1; i < centerLineLength; i++) {
                 Cell newCellOnEast = new Cell();
-                currentCell.setEast(newCellOnEast);
+                connectWestToEast(currentCell, newCellOnEast);
                 currentCell = newCellOnEast;
             }
         }
@@ -34,7 +35,9 @@ public class OktagonBoard {
             for (int i = 0; i < centerLineLength - 1; i++) {
                 nextCell = currentCell.getEast();
                 Cell newCellOnNorth = new Cell();
-                currentCell.setNorthEast(newCellOnNorth);
+
+                connectSouthWestToNorthEast(currentCell, newCellOnNorth);
+
                 nextCell.setNorthWest(newCellOnNorth);
             }
         }
@@ -49,8 +52,21 @@ public class OktagonBoard {
                 nextCell.setSouthWest(newCellOnSouth);
             }
         }
+    }
 
-        return head;
+    private void connectSouthWestToNorthEast(Cell southWest, Cell northEast) {
+        southWest.setNorthEast(northEast);
+        northEast.setSouthWest(southWest);
+    }
+
+    private void connectNorthWestToSouthEast(Cell northWest, Cell southEast) {
+        northWest.setSouthEast(southEast);
+        southEast.setNorthWest(northWest);
+    }
+
+    private void connectWestToEast(Cell west, Cell east) {
+        west.setEast(east);
+        east.setWest(west);
     }
 
     public int getCellCount() {
@@ -67,5 +83,9 @@ public class OktagonBoard {
 
     public List<List<Cell>> horizontalContent() {
         return null;
+    }
+
+    public Cell getHead() {
+        return head;
     }
 }

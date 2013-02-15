@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class OktagonBoardTest {
     @Test
@@ -55,5 +56,32 @@ public class OktagonBoardTest {
             }
         }
         return result;
+    }
+
+    @Test
+    public void checkCellNetWithSideLength2() throws Exception {
+        // given
+        OktagonBoard board = new OktagonBoard(2);
+
+        // when
+        Cell head = board.getHead();
+
+        // then
+        Cell cell1 = head;
+        assertNotNull(cell1);
+        Cell cell2 = cell1.getEast();
+        assertNotNull(cell2);
+        Cell cell3 = cell2.getEast();
+        assertNotNull(cell3);
+
+        Cell cell4 = cell1.getNorthEast();
+        assertNotNull(cell4);
+        Cell cell5 = cell4.getEast();
+        assertNotNull(cell5);
+
+        Cell cell6 = cell1.getSouthEast();
+        assertNotNull(cell6);
+        Cell cell7 = cell6.getEast();
+        assertNotNull(cell7);
     }
 }

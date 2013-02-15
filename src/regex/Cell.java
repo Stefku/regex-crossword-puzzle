@@ -4,22 +4,12 @@ package regex;
 * This class ... TODO
 */
 class Cell {
-    private Cell north;
     private Cell northWest;
     private Cell northEast;
-    private Cell south;
     private Cell southWest;
     private Cell southEast;
     private Cell west;
     private Cell east;
-
-    public Cell getNorth() {
-        return north;
-    }
-
-    public void setNorth(Cell north) {
-        this.north = north;
-    }
 
     public Cell getNorthWest() {
         return northWest;
@@ -35,14 +25,6 @@ class Cell {
 
     public void setNorthEast(Cell northEast) {
         this.northEast = northEast;
-    }
-
-    public Cell getSouth() {
-        return south;
-    }
-
-    public void setSouth(Cell south) {
-        this.south = south;
     }
 
     public Cell getSouthWest() {
