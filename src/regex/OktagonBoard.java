@@ -20,37 +20,68 @@ public class OktagonBoard {
     protected void createNet() {
         head = new Cell();
 
-        {
-            Cell currentCell = head;
-            for (int i = 1; i < centerLineLength; i++) {
-                Cell newCellOnEast = new Cell();
-                connectWestToEast(currentCell, newCellOnEast);
-                currentCell = newCellOnEast;
-            }
+        createHorizontalLine(head, centerLineLength);
+
+        createLineAbove(head);
+
+        createLineBelow();
+    }
+
+    private void createLineBelow() {
+        // south from center
+        Cell currentCell = head;
+        Cell nextCell;
+        // create south
+        for (int i = 0; i < centerLineLength - 1; i++) {
+            nextCell = currentCell.getEast();
+            Cell newCellOnSouth = new Cell();
+            connectNorthWestToSouthEast(currentCell, newCellOnSouth);
+            connectSouthWestToNorthEast(newCellOnSouth, nextCell);
+            currentCell = nextCell;
         }
-
-        {
-            Cell currentCell = head;
-            Cell nextCell;
-            for (int i = 0; i < centerLineLength - 1; i++) {
-                nextCell = currentCell.getEast();
-                Cell newCellOnNorth = new Cell();
-
-                connectSouthWestToNorthEast(currentCell, newCellOnNorth);
-
-                nextCell.setNorthWest(newCellOnNorth);
-            }
+        // connect south
+        currentCell = head;
+        nextCell = null;
+        for (int i = 0; i < centerLineLength - 2; i++) {
+            nextCell = currentCell.getEast();
+            Cell firstSouth = currentCell.getSouthEast();
+            Cell nextSouth = nextCell.getSouthEast();
+            connectWestToEast(firstSouth, nextSouth);
+            currentCell = nextCell;
         }
+    }
 
-        {
-            Cell currentCell = head;
-            Cell nextCell;
-            for (int i = 0; i < centerLineLength - 1; i++) {
-                nextCell = currentCell.getEast();
-                Cell newCellOnSouth = new Cell();
-                currentCell.setSouthEast(newCellOnSouth);
-                nextCell.setSouthWest(newCellOnSouth);
-            }
+    private void createLineAbove(Cell startCell) {
+        // north from center
+        Cell currentCell = startCell;
+        Cell nextCell;
+        // create north
+        for (int i = 0; i < centerLineLength - 1; i++) {
+            nextCell = currentCell.getEast();
+            Cell newCellOnNorth = new Cell();
+            connectSouthWestToNorthEast(currentCell, newCellOnNorth);
+            connectNorthWestToSouthEast(newCellOnNorth, nextCell);
+            currentCell = nextCell;
+        }
+        // connect north
+        currentCell = head;
+        nextCell = null;
+        for (int i = 0; i < centerLineLength - 2; i++) {
+            nextCell = currentCell.getEast();
+            Cell firstNorth = currentCell.getNorthEast();
+            Cell nextNorth = nextCell.getNorthEast();
+            connectWestToEast(firstNorth, nextNorth);
+            currentCell = nextCell;
+        }
+    }
+
+    private void createHorizontalLine(Cell startCell, int lineLength) {
+        // center line
+        Cell currentCell = startCell;
+        for (int i = 1; i < lineLength; i++) {
+            Cell newCellOnEast = new Cell();
+            connectWestToEast(currentCell, newCellOnEast);
+            currentCell = newCellOnEast;
         }
     }
 

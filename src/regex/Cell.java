@@ -1,15 +1,12 @@
 package regex;
 
-/**
-* This class ... TODO
-*/
 class Cell {
+    private Cell west;
+    private Cell east;
     private Cell northWest;
     private Cell northEast;
     private Cell southWest;
     private Cell southEast;
-    private Cell west;
-    private Cell east;
 
     public Cell getNorthWest() {
         return northWest;
@@ -57,5 +54,34 @@ class Cell {
 
     public void setEast(Cell east) {
         this.east = east;
+    }
+
+    public String toDetailString() {
+        return "Cell{" +
+                "east=" + east +
+                ", west=" + west +
+                ", northWest=" + northWest +
+                ", northEast=" + northEast +
+                ", southWest=" + southWest +
+                ", southEast=" + southEast +
+                '}';
+    }
+
+    @Override
+    public String toString() {
+        return "Cell{" +
+                "neighbours=" + getNeighbourCount()+
+                '}';
+    }
+
+    public int getNeighbourCount() {
+        int res = 0;
+        if (east != null) res += 1;
+        if (west != null) res += 1;
+        if (northWest != null) res += 1;
+        if (northEast != null) res += 1;
+        if (southWest != null) res += 1;
+        if (southEast != null) res += 1;
+        return res;
     }
 }
