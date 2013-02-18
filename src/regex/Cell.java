@@ -1,69 +1,82 @@
 package regex;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import static regex.Direction.*;
+
 class Cell {
-    private Cell west;
-    private Cell east;
-    private Cell northWest;
-    private Cell northEast;
-    private Cell southWest;
-    private Cell southEast;
+
+    private Map<Direction, Cell> neighbours = new HashMap<Direction, Cell>(6);
 
     public Cell getNorthWest() {
-        return northWest;
+        return neighbours.get(NORTH_WEST);
     }
 
     public void setNorthWest(Cell northWest) {
-        this.northWest = northWest;
+        neighbours.put(NORTH_WEST, northWest);
     }
 
     public Cell getNorthEast() {
-        return northEast;
+        return neighbours.get(NORTH_EAST);
     }
 
     public void setNorthEast(Cell northEast) {
-        this.northEast = northEast;
+        neighbours.put(NORTH_EAST, northEast);
     }
 
     public Cell getSouthWest() {
-        return southWest;
+        return neighbours.get(SOUTH_WEST);
     }
 
     public void setSouthWest(Cell southWest) {
-        this.southWest = southWest;
+        neighbours.put(SOUTH_WEST, southWest);
     }
 
     public Cell getSouthEast() {
-        return southEast;
+        return neighbours.get(SOUTH_EAST);
     }
 
     public void setSouthEast(Cell southEast) {
-        this.southEast = southEast;
+        neighbours.put(SOUTH_EAST, southEast);
     }
 
     public Cell getWest() {
-        return west;
+        return neighbours.get(WEST);
     }
 
     public void setWest(Cell west) {
-        this.west = west;
+        neighbours.put(WEST, west);
     }
 
     public Cell getEast() {
-        return east;
+        return neighbours.get(EAST);
     }
 
     public void setEast(Cell east) {
-        this.east = east;
+        neighbours.put(EAST, east);
+    }
+
+    public void setNeighbour(Cell neighbour, Direction direction) {
+        neighbours.put(direction, neighbour);
+    }
+
+    public Cell getNeighbour(Direction direction) {
+        return neighbours.get(direction);
+    }
+
+    public boolean hasNeighbour(Direction direction) {
+        return getNeighbour(direction) != null;
     }
 
     public String toDetailString() {
         return "Cell{" +
-                "east=" + east +
-                ", west=" + west +
-                ", northWest=" + northWest +
-                ", northEast=" + northEast +
-                ", southWest=" + southWest +
-                ", southEast=" + southEast +
+                "east=" + getEast() +
+                ", west=" + getWest() +
+                ", northWest=" + getNorthWest() +
+                ", northEast=" + getNorthEast() +
+                ", southWest=" + getSouthWest() +
+                ", southEast=" + getSouthEast() +
                 '}';
     }
 
@@ -76,20 +89,20 @@ class Cell {
 
     public int getNeighbourCount() {
         int res = 0;
-        if (east != null) res += 1;
-        if (west != null) res += 1;
-        if (northWest != null) res += 1;
-        if (northEast != null) res += 1;
-        if (southWest != null) res += 1;
-        if (southEast != null) res += 1;
+        if (getEast() != null) res += 1;
+        if (getWest() != null) res += 1;
+        if (getNorthWest() != null) res += 1;
+        if (getNorthEast() != null) res += 1;
+        if (getSouthWest() != null) res += 1;
+        if (getSouthEast() != null) res += 1;
         return res;
     }
 
     public boolean hasEast() {
-        return east != null;
+        return getEast() != null;
     }
 
     public boolean hasNorthEast() {
-        return northEast != null;
+        return getNorthEast() != null;
     }
 }

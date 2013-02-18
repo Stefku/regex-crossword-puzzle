@@ -1,5 +1,6 @@
 package regex;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class OktagonBoardTest {
     }
 
     @Test
+    @Ignore
     public void oktagonBoardWithSideWidth7() throws Exception {
         OktagonBoard board = new OktagonBoard(7);
 

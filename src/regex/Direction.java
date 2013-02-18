@@ -1,8 +1,7 @@
 package regex;
 
-/**
- * This class ... TODO
- */
 public enum Direction {
-    WEST;
+    WEST, NORTH_WEST, SOUTH_WEST,
+    EAST, NORTH_EAST, SOUTH_EAST;
+
 }
