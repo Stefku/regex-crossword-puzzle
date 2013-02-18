@@ -84,4 +84,12 @@ class Cell {
         if (southEast != null) res += 1;
         return res;
     }
+
+    public boolean hasEast() {
+        return east != null;
+    }
+
+    public boolean hasNorthEast() {
+        return northEast != null;
+    }
 }
