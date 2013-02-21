@@ -1,28 +1,29 @@
 package regex;
 
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Board {
 
+    public enum Segment {A, B, C, D, E, F}
 
-
-    public enum Segment {A, B, C, D, E, F;}
     private final int sideLength;
-
     private final int diameter;
     private final char[][] board;
-    private final Map<Segment, Map<Integer, String>> expressions = new HashMap<>();
+
+    private final Map<Segment, Map<Integer, String>> expressions;
 
     public Board(int sideLength) {
         this.sideLength = sideLength;
         diameter = sideLength + sideLength - 1;
         board = new char[diameter][diameter];
+        expressions = new EnumMap<>(Segment.class);
     }
 
     public void setExpression(Segment segment, int segmentNo, String expression) {
         if (!expressions.containsKey(segment)) {
-            expressions.put(segment, new HashMap<Integer, String>());
+            expressions.put(segment, new HashMap<Integer, String>(sideLength));
         }
         expressions.get(segment).put(segmentNo, expression);
     }
@@ -127,5 +128,12 @@ public class Board {
 
     public int getDiameter() {
         return diameter;
+    }
+
+    @Override
+    public String toString() {
+        return "Board{" +
+                "sideLength=" + sideLength +
+                '}';
     }
 }
