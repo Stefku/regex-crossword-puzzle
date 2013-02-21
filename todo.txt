@@ -1,0 +1,1 @@
+- create IDEA bug move @SuppressWarnings("All") up with CTRL-SHIFT-UP

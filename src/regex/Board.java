@@ -5,14 +5,20 @@ import java.util.Map;
 
 public class Board {
 
-    public enum Segment {A, B, C, D, E, F}
 
-    private int sideLength = 2;
 
-    private int diameter = 3;
-    private char[][] board = new char[3][3];
+    public enum Segment {A, B, C, D, E, F;}
+    private final int sideLength;
 
-    private Map<Segment, Map<Integer, String>> expressions = new HashMap<>();
+    private final int diameter;
+    private final char[][] board;
+    private final Map<Segment, Map<Integer, String>> expressions = new HashMap<>();
+
+    public Board(int sideLength) {
+        this.sideLength = sideLength;
+        diameter = sideLength + sideLength - 1;
+        board = new char[diameter][diameter];
+    }
 
     public void setExpression(Segment segment, int segmentNo, String expression) {
         if (!expressions.containsKey(segment)) {
@@ -44,10 +50,9 @@ public class Board {
     }
 
     private String getStringForSegmentA(int segmentNo) {
-        int offset = 0;
         int y = segmentNo;
         StringBuilder sb = new StringBuilder(diameter);
-        for (int x = offset; x < sideLength + y - offset; x++) {
+        for (int x = 0; x < sideLength + y; x++) {
             sb.append(board[x][y]);
         }
         return sb.toString();
@@ -55,7 +60,7 @@ public class Board {
 
     private String getStringForSegmentB(int segmentNo) {
         int y = sideLength + segmentNo;
-        int offset = 1;
+        int offset = segmentNo + 1;
         StringBuilder sb = new StringBuilder(diameter);
         for (int x = offset; x < sideLength + y - offset; x++) {
             sb.append(board[x][y]);
@@ -108,7 +113,7 @@ public class Board {
     }
 
     private String getStringForSegmentF(int segmentNo) {
-        int x = sideLength - 1 - 1;
+        int x = sideLength - 1 - (segmentNo + 1);
         int y = 0;
 
         StringBuilder sb = new StringBuilder(diameter);
@@ -118,5 +123,9 @@ public class Board {
         }
 
         return sb.toString();
+    }
+
+    public int getDiameter() {
+        return diameter;
     }
 }
