@@ -12,16 +12,16 @@ public class BoardTest {
 
     @Test
     public void expressionIsTrue() throws Exception {
-        Expression expression = new Expression("(DI|NS|TH|OM)*", "DITH");
+        Expression expression = new Expression("(DI|NS|TH|OM)*");
 
-        assertTrue(expression.check());
+        assertTrue(expression.check("DITH"));
     }
 
     @Test
     public void expressionIsFalse() throws Exception {
-        Expression expression = new Expression("(DI|NS|TH|OM)*", "DIT");
+        Expression expression = new Expression("(DI|NS|TH|OM)*");
 
-        assertFalse(expression.check());
+        assertFalse(expression.check("DIT"));
     }
 
     @Test
@@ -37,6 +37,5 @@ public class BoardTest {
 
         assertEquals(13, board.getDiameter());
     }
-
 
 }

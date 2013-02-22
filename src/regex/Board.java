@@ -3,16 +3,18 @@ package regex;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class Board {
 
-    public enum Segment {A, B, C, D, E, F}
+
+    public enum Segment {A, B, C, D, E, F;}
 
     private final int sideLength;
+
     private final int diameter;
     private final char[][] board;
-
-    private final Map<Segment, Map<Integer, String>> expressions;
+    private final Map<Segment, Map<Integer, Pattern>> expressions;
 
     public Board(int sideLength) {
         this.sideLength = sideLength;
@@ -21,11 +23,11 @@ public class Board {
         expressions = new EnumMap<>(Segment.class);
     }
 
-    public void setExpression(Segment segment, int segmentNo, String expression) {
+    public void setExpression(Segment segment, int segmentNo, Pattern pattern) {
         if (!expressions.containsKey(segment)) {
-            expressions.put(segment, new HashMap<Integer, String>(sideLength));
+            expressions.put(segment, new HashMap<Integer, Pattern>(sideLength));
         }
-        expressions.get(segment).put(segmentNo, expression);
+        expressions.get(segment).put(segmentNo, pattern);
     }
 
     public void setCharacter(int x, int y, char character) {
@@ -128,6 +130,12 @@ public class Board {
 
     public int getDiameter() {
         return diameter;
+    }
+
+    public boolean checkExpression(Segment segment, int segmentNo) {
+        String string = getString(segment, segmentNo);
+        Pattern pattern = expressions.get(segment).get(segmentNo);
+        return pattern.matcher(string).matches();
     }
 
     @Override
