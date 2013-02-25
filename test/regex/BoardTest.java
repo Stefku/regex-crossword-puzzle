@@ -38,4 +38,58 @@ public class BoardTest {
         assertEquals(13, board.getDiameter());
     }
 
+    @Test
+    public void testSameContent() {
+        Board board1 = new Board(2);
+        board1.setCharacter(0, 0, 'a');
+        board1.setCharacter(0, 1, 'b');
+        board1.setCharacter(0, 2, 'c');
+        board1.setCharacter(1, 0, 'd');
+        board1.setCharacter(1, 1, 'e');
+        board1.setCharacter(1, 2, 'f');
+        board1.setCharacter(2, 0, 'g');
+        board1.setCharacter(2, 1, 'h');
+        board1.setCharacter(2, 2, 'i');
+
+        Board board2 = new Board(2);
+        board2.setCharacter(0, 0, 'a');
+        board2.setCharacter(0, 1, 'b');
+        board2.setCharacter(0, 2, 'c');
+        board2.setCharacter(1, 0, 'd');
+        board2.setCharacter(1, 1, 'e');
+        board2.setCharacter(1, 2, 'f');
+        board2.setCharacter(2, 0, 'g');
+        board2.setCharacter(2, 1, 'h');
+        board2.setCharacter(2, 2, 'i');
+
+        assertTrue(board1.hasSameContent(board2));
+    }
+
+    @Test
+    public void testNotSameContent() {
+        Board board1 = new Board(2);
+        board1.setCharacter(0, 0, 'a');
+        board1.setCharacter(0, 1, 'b');
+        board1.setCharacter(0, 2, 'c');
+        board1.setCharacter(1, 0, 'd');
+        board1.setCharacter(1, 1, 'e');
+        board1.setCharacter(1, 2, 'f');
+        board1.setCharacter(2, 0, 'g');
+        board1.setCharacter(2, 1, 'h');
+        board1.setCharacter(2, 2, 'i');
+
+        Board board2 = new Board(2);
+        board2.setCharacter(0, 0, 'a');
+        board2.setCharacter(0, 1, 'b');
+        board2.setCharacter(0, 2, 'c');
+        board2.setCharacter(1, 0, 'd');
+        board2.setCharacter(1, 1, 'e');
+        board2.setCharacter(1, 2, 'X');
+        board2.setCharacter(2, 0, 'g');
+        board2.setCharacter(2, 1, 'h');
+        board2.setCharacter(2, 2, 'i');
+
+        assertFalse(board1.hasSameContent(board2));
+    }
+
 }

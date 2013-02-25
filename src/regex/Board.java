@@ -1,12 +1,12 @@
 package regex;
 
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
 public class Board {
-
 
     public enum Segment {A, B, C, D, E, F;}
 
@@ -143,5 +143,24 @@ public class Board {
         return "Board{" +
                 "sideLength=" + sideLength +
                 '}';
+    }
+
+    public void fillBoard(String boardAsString) {
+        String[] lines = boardAsString.split(",");
+        for (int y = 0; y < lines.length; y++) {
+            String line = lines[y];
+            String[] characters = line.split(" ");
+            for (int x = 0; x < characters.length; x++) {
+                String character = characters[x];
+                setCharacter(x, y, character.charAt(0));
+            }
+        }
+    }
+
+    public boolean hasSameContent(Board other) {
+        if (this.sideLength != other.sideLength) {
+            return false;
+        }
+        return Arrays.deepEquals(this.board, other.board);
     }
 }

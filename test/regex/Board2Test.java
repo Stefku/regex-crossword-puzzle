@@ -25,11 +25,13 @@ public class Board2Test {
         board = new Board(2);
         board.setCharacter(0, 0, 'a');
         board.setCharacter(1, 0, 'b');
+        board.setCharacter(2, 0, '_');
 
         board.setCharacter(0, 1, 'c');
         board.setCharacter(1, 1, 'd');
         board.setCharacter(2, 1, 'e');
 
+        board.setCharacter(0, 2, '_');
         board.setCharacter(1, 2, 'f');
         board.setCharacter(2, 2, 'g');
     }
@@ -151,6 +153,16 @@ public class Board2Test {
 
         // then
         assertFalse(result);
+    }
+
+    @Test
+    public void createBoardViaBuilder() {
+        Board board2 = new Board(2);
+        board2.fillBoard(
+                "a b _," +
+                "c d e," +
+                "_ f g,");
+        assertTrue(board.hasSameContent(board2));
     }
 
 }
